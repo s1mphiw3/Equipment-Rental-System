@@ -1,0 +1,250 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Equipment Rental Management API",
+    "version": "1.0.0",
+    "description": "Auto-generated OpenAPI spec (partial) from route files. Review and expand schemas and examples as needed."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Local development server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "email": { "type": "string" },
+          "first_name": { "type": "string" },
+          "last_name": { "type": "string" },
+          "role": { "type": "string" }
+        }
+      },
+      "Equipment": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "pricePerDay": { "type": "number" },
+          "quantity": { "type": "integer" },
+          "images": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "Rental": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "userId": { "type": "string" },
+          "equipment": { "type": "array", "items": { "$ref": "#/components/schemas/Equipment" } },
+          "startDate": { "type": "string", "format": "date" },
+          "endDate": { "type": "string", "format": "date" },
+          "status": { "type": "string" }
+        }
+      },
+      "DamageReport": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "rentalId": { "type": "string" },
+          "description": { "type": "string" },
+          "images": { "type": "array", "items": { "type": "string" } },
+          "status": { "type": "string" }
+        }
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "amount": { "type": "number" },
+          "status": { "type": "string" }
+        }
+      },
+      "Penalty": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "rentalId": { "type": "string" },
+          "amount": { "type": "number" },
+          "paid": { "type": "boolean" }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "properties": { "email": {"type":"string"}, "password": {"type":"string"} }, "required": ["email","password"] }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "User created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/User" } } } },
+          "400": { "description": "Validation error", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Log in and receive a JWT",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type":"object","properties":{"email":{"type":"string"},"password":{"type":"string"}},"required":["email","password"] } } } },
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "schema": { "type":"object","properties":{"token":{"type":"string"},"user":{"$ref":"#/components/schemas/User"}} } } } }
+      }
+    },
+    "/auth/profile": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get current user profile",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/User" } } } }, "401": { "description": "Unauthorized" } }
+      },
+      "put": {
+        "tags": ["Auth"],
+        "summary": "Update current user profile",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": { "content": { "application/json": { "schema": { "type":"object" } } } },
+        "responses": { "200": { "description": "Updated" }, "400": { "description": "Validation error" } }
+      }
+    },
+
+    "/equipment": {
+      "get": {
+        "tags": ["Equipment"],
+        "summary": "List equipment (public/optional auth)",
+        "responses": { "200": { "description": "List of equipment", "content": { "application/json": { "schema": { "type":"array", "items": { "$ref": "#/components/schemas/Equipment" } } } } }
+      },
+      "post": {
+        "tags": ["Equipment"],
+        "summary": "Create equipment (admin/staff)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": { "content": { "multipart/form-data": { "schema": { "type":"object", "properties": { "name": { "type": "string" }, "pricePerDay": { "type": "number" }, "quantity": { "type": "integer" }, "image": { "type": "string", "format": "binary" } }, "required": ["name"] } } } },
+        "responses": { "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Equipment" } } } }, "401": { "description": "Unauthorized" } }
+      }
+    },
+    "/equipment/{id}": {
+      "get": {
+        "tags": ["Equipment"],
+        "summary": "Get equipment by id",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Equipment", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Equipment" } } } }, "404": { "description": "Not found" } }
+      },
+      "put": {
+        "tags": ["Equipment"],
+        "summary": "Update equipment (admin/staff)",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": { "content": { "multipart/form-data": { "schema": { "type":"object", "properties": { "name": {"type":"string"}, "image": { "type": "string", "format": "binary" } } } } } },
+        "responses": { "200": { "description": "Updated" }, "401": { "description": "Unauthorized" } }
+      },
+      "delete": {
+        "tags": ["Equipment"],
+        "summary": "Delete equipment (admin)",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "204": { "description": "Deleted" }, "401": { "description": "Unauthorized" } }
+      }
+    },
+
+    "/equipment/check-availability": {
+      "post": {
+        "tags": ["Equipment"],
+        "summary": "Check availability for requested dates",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type":"object" } } } },
+        "responses": { "200": { "description": "Availability result" } }
+      }
+    },
+
+    "/rentals": {
+      "post": {
+        "tags": ["Rentals"],
+        "summary": "Create a rental (authenticated)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Rental" } } } },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Validation error" } }
+      },
+      "get": {
+        "tags": ["Rentals"],
+        "summary": "List all rentals (admin/staff)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/rentals/my-rentals": {
+      "get": {
+        "tags": ["Rentals"],
+        "summary": "Get current user's rentals",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/rentals/{id}": {
+      "get": { "tags": ["Rentals"], "summary": "Get rental by id", "parameters": [{ "name":"id","in":"path","required":true,"schema":{"type":"string"}}], "security": [{"bearerAuth": []}], "responses": {"200":{"description":"OK"}} },
+      "put": { "tags":["Rentals"], "summary":"Cancel rental (customer) or update status (admin)","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}], "security":[{"bearerAuth":[]}], "responses":{"200":{"description":"Updated"}} }
+    },
+
+    "/damage-reports": {
+      "post": {
+        "tags": ["DamageReports"],
+        "summary": "Create damage report (authenticated)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": { "content": { "multipart/form-data": { "schema": { "type":"object" } } } },
+        "responses": { "201": { "description": "Created" } }
+      },
+      "get": { "tags":["DamageReports"], "summary":"List all damage reports (admin)", "security":[{"bearerAuth":[]}], "responses": {"200": {"description":"OK"}} }
+    },
+    "/damage-reports/{id}": {
+      "get": { "tags":["DamageReports"], "summary":"Get damage report (staff/admin)", "parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}], "security":[{"bearerAuth":[]}], "responses":{"200":{"description":"OK"}} },
+      "put": { "tags":["DamageReports"], "summary":"Update damage report (staff/admin)", "parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}], "security":[{"bearerAuth":[]}], "requestBody": { "content": { "multipart/form-data": { "schema": { "type":"object" } } } }, "responses":{"200":{"description":"Updated"}} },
+      "delete": { "tags":["DamageReports"], "summary":"Delete report (admin)", "parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}], "security":[{"bearerAuth":[]}], "responses":{"204":{"description":"Deleted"}} }
+    },
+
+    "/payments/create-intent": {
+      "post": { "tags":["Payments"], "summary":"Create payment intent (authenticated)", "security":[{"bearerAuth":[]}], "requestBody": { "content": { "application/json": { "schema": { "type":"object" } } } }, "responses": { "200": { "description": "Intent created" } } }
+    },
+
+    "/penalties": {
+      "get": { "tags":["Penalties"], "summary":"List all penalties (admin/staff)", "security":[{"bearerAuth":[]}], "responses": { "200": { "description": "OK" } } },
+      "post": { "tags":["Penalties"], "summary":"Create penalty (staff/admin)", "security":[{"bearerAuth":[]}], "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Penalty" } } } }, "responses": { "201": { "description": "Created" } } }
+    },
+
+    "/pickup-returns": {
+      "get": { "tags":["PickupReturns"], "summary":"List pickup/returns (admin/staff)", "security":[{"bearerAuth":[]}], "responses": { "200": { "description": "OK" } } },
+      "post": { "tags":["PickupReturns"], "summary":"Create pickup/return record (staff/admin)", "security":[{"bearerAuth":[]}], "requestBody": { "content": { "application/json": { "schema": { "type":"object" } } } }, "responses": { "201": { "description": "Created" } } }
+    },
+
+    "/rental-agreements/{rentalId}/generate": {
+      "post": { "tags":["RentalAgreements"], "summary":"Generate agreement for rental","security":[{"bearerAuth":[]}], "parameters":[{"name":"rentalId","in":"path","required":true,"schema":{"type":"string"}}], "responses": { "200": { "description": "Agreement generated" } } }
+    }
+
+  }
+}
