@@ -116,7 +116,8 @@ const RentalForm = ({ equipmentId, onSubmit, onCancel }) => {
             <h3 className="font-semibold text-gray-900">{equipment.name}</h3>
             <p className="text-sm text-gray-600">{equipment.category_name}</p>
             <p className="text-lg font-bold text-primary-600">
-              ${equipment.daily_rate} <span className="text-sm font-normal text-gray-500">per day</span>
+              E{equipment.daily_rate} <span className="text-sm font-normal text-gray-500">per day</span>
+
             </p>
           </div>
         </div>
@@ -221,11 +222,13 @@ const RentalForm = ({ equipmentId, onSubmit, onCancel }) => {
             </div>
             <div>
               <span className="text-blue-700">Daily Rate:</span>
-              <span className="ml-2 font-medium">${equipment.daily_rate}</span>
+              <span className="ml-2 font-medium">E{equipment.daily_rate}</span>
+
             </div>
             <div className="col-span-2 border-t border-blue-200 pt-2">
               <span className="text-blue-900 font-semibold">Total Cost:</span>
-              <span className="ml-2 text-lg font-bold text-blue-900">${totalCost}</span>
+              <span className="ml-2 text-lg font-bold text-blue-900">E{totalCost}</span>
+
             </div>
           </div>
         </div>

@@ -267,7 +267,7 @@ const AdminEquipmentForm = ({ isEdit = false }) => {
           {/* Daily Rate */}
           <div>
             <label htmlFor="daily_rate" className="block text-sm font-medium text-gray-700 mb-2">
-              Daily Rate ($) *
+Daily Rate (E) *
             </label>
             <input
               type="number"

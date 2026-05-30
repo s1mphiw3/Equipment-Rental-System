@@ -21,8 +21,10 @@
     "multer": "^2.0.2",
     "mysql2": "^3.15.3",
     "node-cron": "^4.2.1",
-    "nodemailer": "^7.0.10",
+    "nodemailer": "^8.0.5",
     "nodemon": "^3.1.10",
+    "pdfkit": "^0.18.0",
+    "speakeasy": "^2.0.0",
     "stripe": "^19.1.0"
   }
 }
