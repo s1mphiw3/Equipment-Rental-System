@@ -105,7 +105,8 @@ const PenaltyDisplay = ({ rentalId, onSuccess }) => {
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
               <div className="flex justify-between items-center">
                 <div>
-                  <strong className="text-yellow-800">Unpaid Penalties:</strong> ${totalUnpaid.toFixed(2)}
+                  <strong className="text-yellow-800">Unpaid Penalties:</strong> E${totalUnpaid.toFixed(2)}
+
                 </div>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                   {unpaidPenalties.length} pending
@@ -135,8 +136,9 @@ const PenaltyDisplay = ({ rentalId, onSuccess }) => {
                       </div>
                       <p className="mb-2 text-gray-700">{penalty.reason}</p>
                       <div className="flex items-center gap-3">
-                        <strong className="text-red-600">${parseFloat(penalty.amount).toFixed(2)}</strong>
+                        <strong className="text-red-600">E${parseFloat(penalty.amount).toFixed(2)}</strong>
                         {penalty.paid_at && (
+
                           <small className="text-gray-500">
                             Paid: {new Date(penalty.paid_at).toLocaleString()}
                           </small>
@@ -214,7 +216,7 @@ const PenaltyDisplay = ({ rentalId, onSuccess }) => {
                       </div>
                       <div className="flex justify-between border-t border-gray-200 pt-2">
                         <span className="text-gray-900 font-semibold">Amount:</span>
-                        <span className="text-lg font-bold text-red-600">${parseFloat(selectedPenalty.amount).toFixed(2)}</span>
+<span className="text-lg font-bold text-red-600">E${parseFloat(selectedPenalty.amount).toFixed(2)}</span>
                       </div>
                     </div>
                   </div>

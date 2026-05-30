@@ -138,7 +138,7 @@ const DamageReportForm = ({ rentalId, onSuccess }) => {
 
         {showForm && (
           <div className="mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Report New Damage</h3>
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">Report New Damage</h3>
             <form className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="md:col-span-2">

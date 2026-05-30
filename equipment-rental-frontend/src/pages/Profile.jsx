@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
-import QRCode from 'qrcode';
+//import QRCode from 'qrcode';
 
 const Profile = () => {
   const { user, updateProfile, setup2FA, verify2FA, disable2FA, changePassword } = useAuth();

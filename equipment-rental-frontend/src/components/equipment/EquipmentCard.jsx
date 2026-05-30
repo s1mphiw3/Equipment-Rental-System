@@ -80,21 +80,25 @@ const EquipmentCard = ({ equipment }) => {
         <div className="flex items-center justify-between mb-3">
           <div>
             <span className="text-2xl font-bold text-gray-900">
-              ${equipment.daily_rate}
+              E{equipment.daily_rate}
             </span>
             <span className="text-sm text-gray-500 ml-1">/day</span>
+
           </div>
           {equipment.hourly_rate && (
             <span className="text-sm text-gray-500">
               ${equipment.hourly_rate}/hr
             </span>
+
           )}
+
         </div>
 
         <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
           <span>Stock: {equipment.available_quantity}/{equipment.quantity}</span>
           {equipment.weekly_rate && (
-            <span>${equipment.weekly_rate}/wk</span>
+            <span>E{equipment.weekly_rate}/wk</span>
+
           )}
         </div>
 

@@ -98,13 +98,13 @@ const AdminDamageStatistics = () => {
               <div className="flex justify-between items-center p-4 bg-green-50 rounded-lg">
                 <span className="text-sm font-medium text-gray-900">Total Estimated Cost</span>
                 <span className="text-lg font-bold text-green-600">
-                  ${statistics.total_costs?.total_estimated || 0}
+E{statistics.total_costs?.total_estimated || 0}
                 </span>
               </div>
               <div className="flex justify-between items-center p-4 bg-red-50 rounded-lg">
                 <span className="text-sm font-medium text-gray-900">Total Actual Cost</span>
                 <span className="text-lg font-bold text-red-600">
-                  ${statistics.total_costs?.total_actual || 0}
+E{statistics.total_costs?.total_actual || 0}
                 </span>
               </div>
               <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg">

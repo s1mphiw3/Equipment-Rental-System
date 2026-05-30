@@ -142,8 +142,7 @@ const EquipmentDetails = () => {
           <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
             {equipment.image_url ? (
               <img
-               src={equipment.image_url ?`http://localhost:5000${equipment.image_url}`
-                             :'/placeholder-equipment.jpg'}
+src={equipment.image_url ? `http://localhost:5000${equipment.image_url}` : '/placeholder-equipment.jpg'}
                 alt={equipment.name}
                 className="w-full h-96 object-cover"
               />
@@ -170,7 +169,7 @@ const EquipmentDetails = () => {
           {/* Pricing */}
           <div className="bg-gray-50 rounded-lg p-6 mb-6">
             <div className="flex items-baseline mb-4">
-              <span className="text-4xl font-bold text-gray-900">${equipment.daily_rate}</span>
+<span className="text-4xl font-bold text-gray-900">E{equipment.daily_rate}</span>
               <span className="text-lg text-gray-600 ml-2">per day</span>
             </div>
             
@@ -178,19 +177,19 @@ const EquipmentDetails = () => {
               {equipment.hourly_rate && (
                 <div>
                   <span className="font-medium">Hourly:</span>
-                  <span className="ml-2">${equipment.hourly_rate}/hr</span>
+<span className="ml-2">E{equipment.hourly_rate}/hr</span>
                 </div>
               )}
               {equipment.weekly_rate && (
                 <div>
                   <span className="font-medium">Weekly:</span>
-                  <span className="ml-2">${equipment.weekly_rate}/wk</span>
+<span className="ml-2">E{equipment.weekly_rate}/wk</span>
                 </div>
               )}
               {equipment.monthly_rate && (
                 <div>
                   <span className="font-medium">Monthly:</span>
-                  <span className="ml-2">${equipment.monthly_rate}/mo</span>
+<span className="ml-2">E{equipment.monthly_rate}/mo</span>
                 </div>
               )}
             </div>
@@ -260,7 +259,7 @@ const EquipmentDetails = () => {
                     {duration} day{duration !== 1 ? 's' : ''} rental
                   </span>
                   <span className="text-lg font-bold text-blue-900">
-                    ${totalCost}
+E{totalCost}
                   </span>
                 </div>
               </div>

@@ -163,7 +163,8 @@ const EquipmentFilters = ({ onFilterChange, initialFilters }) => {
           {/* Min Price */}
           <div className="flex-1">
             <label htmlFor="minPrice" className="block text-sm font-medium text-gray-700 mb-1">
-              Min Price per Day ($)
+              Min Price per Day (E)
+
             </label>
             <input
               type="number"
@@ -180,7 +181,8 @@ const EquipmentFilters = ({ onFilterChange, initialFilters }) => {
           {/* Max Price */}
           <div className="flex-1">
             <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
-              Max Price per Day ($)
+              Max Price per Day (E)
+
             </label>
             <input
               type="number"
@@ -256,7 +258,8 @@ const EquipmentFilters = ({ onFilterChange, initialFilters }) => {
           )}
           {filters.minPrice && (
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-              Min: ${filters.minPrice}
+              Min: E${filters.minPrice}
+
               <button
                 onClick={() => handleFilterChange('minPrice', '')}
                 className="ml-1 hover:text-yellow-600"
@@ -267,7 +270,8 @@ const EquipmentFilters = ({ onFilterChange, initialFilters }) => {
           )}
           {filters.maxPrice && (
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-              Max: ${filters.maxPrice}
+              Max: E${filters.maxPrice}
+
               <button
                 onClick={() => handleFilterChange('maxPrice', '')}
                 className="ml-1 hover:text-yellow-600"

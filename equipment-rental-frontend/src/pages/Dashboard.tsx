@@ -224,7 +224,7 @@ useEffect(() => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-              <p className="text-2xl font-bold text-gray-900">${stats.totalRevenue.toFixed(2)}</p>
+<p className="text-2xl font-bold text-gray-900">E{stats.totalRevenue.toFixed(2)}</p>
             </div>
           </div>
         </div>
@@ -351,7 +351,7 @@ useEffect(() => {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium text-gray-900">${rental.total_amount}</p>
+<p className="text-sm font-medium text-gray-900">E{rental.total_amount}</p>
                       <div className="flex items-center space-x-2">
                         {getStatusBadge(rental.status)}
                         <span className="text-xs text-gray-500">{formatDate(rental.created_at)}</span>

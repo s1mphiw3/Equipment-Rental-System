@@ -210,7 +210,7 @@ const AdminDamageReports = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    ${report.estimated_cost}
+E{report.estimated_cost}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {new Date(report.created_at).toLocaleDateString()}

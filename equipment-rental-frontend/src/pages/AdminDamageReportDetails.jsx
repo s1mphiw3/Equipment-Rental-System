@@ -171,12 +171,12 @@ const AdminDamageReportDetails = () => {
             </div>
             <div>
               <p className="text-xs font-medium text-gray-500">Estimated Cost</p>
-              <p className="text-lg font-semibold text-gray-900">${report.estimated_cost}</p>
+<p className="text-lg font-semibold text-gray-900">E{report.estimated_cost}</p>
             </div>
             {report.actual_cost && (
               <div>
                 <p className="text-xs font-medium text-gray-500">Actual Cost</p>
-                <p className="text-lg font-semibold text-gray-900">${report.actual_cost}</p>
+<p className="text-lg font-semibold text-gray-900">E{report.actual_cost}</p>
               </div>
             )}
             <div>
