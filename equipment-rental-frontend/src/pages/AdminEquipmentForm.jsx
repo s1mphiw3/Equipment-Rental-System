@@ -267,7 +267,7 @@ const AdminEquipmentForm = ({ isEdit = false }) => {
           {/* Daily Rate */}
           <div>
             <label htmlFor="daily_rate" className="block text-sm font-medium text-gray-700 mb-2">
-Daily Rate (E) *
+Daily Rate (SZL) *
             </label>
             <input
               type="number"
@@ -369,11 +369,23 @@ Daily Rate (E) *
               {/* Image Preview */}
               {imagePreview && (
                 <div className="relative inline-block">
-                  <img 
-                    // src={imagePreview} 
-                    src={imagePreview ?`http://localhost:5000${imagePreview}`
-                             :'/placeholder-equipment.jpg'}
-                    alt="Equipment preview" 
+                  <img
+                    src={(() => {
+                      if (!imagePreview) return '/placeholder-equipment.jpg';
+                      // imagePreview may be a data URL (from FileReader) or a path from the API (e.g. /uploads/products/xxx.jpg)
+                      if (typeof imagePreview === 'string' && imagePreview.startsWith('data:')) {
+                        return imagePreview;
+                      }
+                      if (typeof imagePreview === 'string' && (imagePreview.startsWith('http://') || imagePreview.startsWith('https://'))) {
+                        return imagePreview;
+                      }
+                      // For relative paths returned by the backend
+                      const apiBaseUrl = import.meta.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+                      const apiHost = apiBaseUrl.replace(/\/+$/, '').replace(/\/api$/i, '');
+                      const prefix = apiHost.startsWith('http') ? apiHost : `http://${apiHost}`;
+                      return `${prefix}${imagePreview}`;
+                    })()}
+                    alt="Equipment preview"
                     className="h-32 w-32 object-cover rounded-lg border border-gray-300"
                   />
                   <button
@@ -387,8 +399,6 @@ Daily Rate (E) *
                   </button>
 
                 </div>
-
-
 
               )}
               

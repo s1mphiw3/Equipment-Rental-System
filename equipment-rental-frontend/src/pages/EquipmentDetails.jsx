@@ -4,6 +4,7 @@ import { equipmentAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const EquipmentDetails = () => {
   const { id } = useParams();
@@ -169,7 +170,7 @@ src={equipment.image_url ? `http://localhost:5000${equipment.image_url}` : '/pla
           {/* Pricing */}
           <div className="bg-gray-50 rounded-lg p-6 mb-6">
             <div className="flex items-baseline mb-4">
-<span className="text-4xl font-bold text-gray-900">E{equipment.daily_rate}</span>
+<span className="text-4xl font-bold text-gray-900">{formatCurrency(equipment.daily_rate)}</span>
               <span className="text-lg text-gray-600 ml-2">per day</span>
             </div>
             
@@ -259,7 +260,7 @@ src={equipment.image_url ? `http://localhost:5000${equipment.image_url}` : '/pla
                     {duration} day{duration !== 1 ? 's' : ''} rental
                   </span>
                   <span className="text-lg font-bold text-blue-900">
-E{totalCost}
+                    {formatCurrency(totalCost)}
                   </span>
                 </div>
               </div>

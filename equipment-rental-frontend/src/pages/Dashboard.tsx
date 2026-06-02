@@ -6,6 +6,8 @@ import { useAuth } from '../context/AuthContext';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ChartComponent from '../components/common/ChartComponent';
 import toast from 'react-hot-toast';
+import { formatCurrency } from '../utils/formatCurrency';
+
 
 // Type definitions
 interface Rental {
@@ -224,7 +226,7 @@ useEffect(() => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-<p className="text-2xl font-bold text-gray-900">E{stats.totalRevenue.toFixed(2)}</p>
+<p className="text-2xl font-bold text-gray-900">{formatCurrency(stats.totalRevenue)}</p>
             </div>
           </div>
         </div>
@@ -333,8 +335,9 @@ useEffect(() => {
                               className="h-12 w-12 rounded-lg object-cover"
                               src={`http://localhost:5000${rental.image_url}`}
                               alt={rental.equipment_name}
-                              onError={(e) => {
-                                e.target.src = '/placeholder-equipment.jpg';
+onError={(e) => {
+                                // eslint-disable-next-line no-param-reassign
+                                e.currentTarget.src = '/placeholder-equipment.jpg';
                               }}
                             />
                           ) : (
@@ -351,7 +354,7 @@ useEffect(() => {
                       </div>
                     </div>
                     <div className="text-right">
-<p className="text-sm font-medium text-gray-900">E{rental.total_amount}</p>
+<p className="text-sm font-medium text-gray-900">{formatCurrency(rental.total_amount)}</p>
                       <div className="flex items-center space-x-2">
                         {getStatusBadge(rental.status)}
                         <span className="text-xs text-gray-500">{formatDate(rental.created_at)}</span>

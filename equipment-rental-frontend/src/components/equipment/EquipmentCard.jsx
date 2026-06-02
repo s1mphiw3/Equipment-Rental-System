@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { equipmentAPI } from '../../services/api';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 const EquipmentCard = ({ equipment }) => {
   const [daysUntilAvailable, setDaysUntilAvailable] = useState(null);
@@ -45,8 +46,16 @@ const EquipmentCard = ({ equipment }) => {
       <div className="h-48 bg-white relative overflow-hidden">
         {equipment.image_url ? (
           <img
-            src={equipment.image_url ?`http://localhost:5000${equipment.image_url}`
-                             :'/placeholder-equipment.jpg'}
+            src={(() => {
+              const img = equipment.image_url;
+              if (!img) return '/placeholder-equipment.jpg';
+              if (img.startsWith('data:')) return img;
+              if (img.startsWith('http://') || img.startsWith('https://')) return img;
+              const apiBaseUrl = import.meta.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+              const apiHost = apiBaseUrl.replace(/\/+$/, '').replace(/\/api$/i, '');
+              const prefix = apiHost.startsWith('http') ? apiHost : `http://${apiHost}`;
+              return `${prefix}${img}`;
+            })()}
             alt={equipment.name}
             className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
           />
@@ -80,14 +89,14 @@ const EquipmentCard = ({ equipment }) => {
         <div className="flex items-center justify-between mb-3">
           <div>
             <span className="text-2xl font-bold text-gray-900">
-              E{equipment.daily_rate}
+              {formatCurrency(equipment.daily_rate)}
             </span>
             <span className="text-sm text-gray-500 ml-1">/day</span>
 
           </div>
           {equipment.hourly_rate && (
             <span className="text-sm text-gray-500">
-              ${equipment.hourly_rate}/hr
+              {formatCurrency(equipment.hourly_rate)}/hr
             </span>
 
           )}

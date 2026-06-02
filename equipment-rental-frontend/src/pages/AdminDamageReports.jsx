@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { damageReportsAPI } from '../services/api';
 import toast from 'react-hot-toast';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const AdminDamageReports = () => {
   const [reports, setReports] = useState([]);
@@ -210,7 +211,7 @@ const AdminDamageReports = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-E{report.estimated_cost}
+{formatCurrency(report.estimated_cost)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {new Date(report.created_at).toLocaleDateString()}

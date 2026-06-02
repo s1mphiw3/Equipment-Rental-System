@@ -6,6 +6,8 @@ import RentalAgreement from '../components/rentals/RentalAgreement';
 import PickupReturnForm from '../components/rentals/PickupReturnForm';
 import DamageReportForm from '../components/rentals/DamageReportForm';
 import PenaltyDisplay from '../components/rentals/PenaltyDisplay';
+import { formatCurrency } from '../utils/formatCurrency';
+
 
 const RentalDetails = () => {
   const { id } = useParams();
@@ -178,7 +180,7 @@ const RentalDetails = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-500">Daily Rate</p>
-<p className="text-lg font-semibold text-primary-600">E{rental.daily_rate}/day</p>
+<p className="text-lg font-semibold text-primary-600">{formatCurrency(rental.daily_rate)}/day</p>
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-500">Available Quantity</p>
@@ -212,7 +214,7 @@ const RentalDetails = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-500">Total Amount</p>
-                      <p className="text-2xl font-bold text-green-600">E{rental.total_amount}</p>
+<p className="text-2xl font-bold text-green-600">{formatCurrency(rental.total_amount)}</p>
                     </div>
                   </div>
 
@@ -253,7 +255,7 @@ const RentalDetails = () => {
             <div className="p-6">
               <div className="mb-4">
                 <p className="text-sm font-medium text-gray-500">Total Amount</p>
-                <p className="text-2xl font-bold text-green-600">E{rental.total_amount}</p>
+                <p className="text-2xl font-bold text-green-600">{formatCurrency(rental.total_amount)}</p>
               </div>
 
               <div className="mb-4">

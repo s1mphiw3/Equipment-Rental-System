@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { damageReportsAPI } from '../services/api';
 import ChartComponent from '../components/common/ChartComponent';
 import toast from 'react-hot-toast';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const AdminDamageStatistics = () => {
   const [statistics, setStatistics] = useState(null);
@@ -98,19 +99,19 @@ const AdminDamageStatistics = () => {
               <div className="flex justify-between items-center p-4 bg-green-50 rounded-lg">
                 <span className="text-sm font-medium text-gray-900">Total Estimated Cost</span>
                 <span className="text-lg font-bold text-green-600">
-E{statistics.total_costs?.total_estimated || 0}
+                  {formatCurrency(statistics.total_costs?.total_estimated || 0)}
                 </span>
               </div>
               <div className="flex justify-between items-center p-4 bg-red-50 rounded-lg">
                 <span className="text-sm font-medium text-gray-900">Total Actual Cost</span>
                 <span className="text-lg font-bold text-red-600">
-E{statistics.total_costs?.total_actual || 0}
+{formatCurrency(statistics.total_costs?.total_actual || 0)}
                 </span>
               </div>
               <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg">
                 <span className="text-sm font-medium text-gray-900">Cost Difference</span>
                 <span className={`text-lg font-bold ${(statistics.total_costs?.total_actual || 0) - (statistics.total_costs?.total_estimated || 0) >= 0 ? 'text-red-600' : 'text-green-600'}`}>
-                  ${(statistics.total_costs?.total_actual || 0) - (statistics.total_costs?.total_estimated || 0)}
+                  {formatCurrency((statistics.total_costs?.total_actual || 0) - (statistics.total_costs?.total_estimated || 0))}
                 </span>
               </div>
             </div>

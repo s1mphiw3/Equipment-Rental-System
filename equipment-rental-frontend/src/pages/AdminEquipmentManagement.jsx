@@ -5,6 +5,7 @@ import LoadingSpinner from '../components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
 import { formatCurrency } from '../utils/formatCurrency';
 
+
 const AdminEquipmentManagement = () => {
   const [equipment, setEquipment] = useState([]);
   const [loading, setLoading] = useState(true);
