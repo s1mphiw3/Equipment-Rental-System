@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { damageReportsAPI } from '../../services/api';
+import { formatCurrency } from '../../utils/formatCurrency';
+
 
 const DamageReportForm = ({ rentalId, onSuccess }) => {
   const [reports, setReports] = useState([]);
@@ -275,12 +277,14 @@ const DamageReportForm = ({ rentalId, onSuccess }) => {
                     <p className="mb-2 text-gray-700">{report.damage_description}</p>
                     {report.estimated_cost && (
                       <p className="mb-2">
-                        <strong className="text-gray-700">Estimated Cost:</strong> ${parseFloat(report.estimated_cost).toFixed(2)}
+                        <strong className="text-gray-700">Estimated Cost:</strong> {formatCurrency(parseFloat(report.estimated_cost))}
+
                       </p>
                     )}
                    {report.actual_cost && (
                       <p className="mb-2">
-                        <strong className="text-gray-700">Actual Cost:</strong> ${parseFloat(report.actual_cost).toFixed(2)}
+                        <strong className="text-gray-700">Actual Cost:</strong> {formatCurrency(parseFloat(report.actual_cost))}
+
                       </p>
                     )}
                     

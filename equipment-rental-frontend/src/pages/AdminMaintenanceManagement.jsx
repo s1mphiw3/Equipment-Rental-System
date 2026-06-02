@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { maintenanceAPI, equipmentAPI } from '../services/api';
 import toast from 'react-hot-toast';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const AdminMaintenanceManagement = () => {
   const [maintenance, setMaintenance] = useState([]);
@@ -360,8 +361,9 @@ const AdminMaintenanceManagement = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
-{item.cost ? `E${item.cost}` : '-'}
+                        {item.cost ? formatCurrency(item.cost) : '-'}
                       </div>
+
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">

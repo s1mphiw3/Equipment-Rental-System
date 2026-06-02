@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { equipmentAPI } from '../../services/api';
+import { formatCurrency } from '../../utils/formatCurrency';
+
 
 const EquipmentFilters = ({ onFilterChange, initialFilters }) => {
   const [filters, setFilters] = useState({
@@ -258,7 +260,7 @@ const EquipmentFilters = ({ onFilterChange, initialFilters }) => {
           )}
           {filters.minPrice && (
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-              Min: E${filters.minPrice}
+              Min: {formatCurrency(filters.minPrice)}
 
               <button
                 onClick={() => handleFilterChange('minPrice', '')}
@@ -270,7 +272,7 @@ const EquipmentFilters = ({ onFilterChange, initialFilters }) => {
           )}
           {filters.maxPrice && (
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-              Max: E${filters.maxPrice}
+              Max: {formatCurrency(filters.maxPrice)}
 
               <button
                 onClick={() => handleFilterChange('maxPrice', '')}
