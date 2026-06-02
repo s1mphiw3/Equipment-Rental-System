@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { rentalsAPI, equipmentAPI } from '../services/api';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const AdminRentalManagement = () => {
   const navigate = useNavigate();
@@ -117,12 +118,7 @@ const AdminRentalManagement = () => {
     });
   };
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
+
 
   if (loading) {
     return <LoadingSpinner text="Loading rentals..." />;

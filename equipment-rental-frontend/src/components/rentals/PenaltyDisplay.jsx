@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { penaltiesAPI } from '../../services/api';
+import { formatCurrency } from '../../utils/formatCurrency';
+
 
 const PenaltyDisplay = ({ rentalId, onSuccess }) => {
   const [penalties, setPenalties] = useState([]);
@@ -105,7 +107,8 @@ const PenaltyDisplay = ({ rentalId, onSuccess }) => {
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
               <div className="flex justify-between items-center">
                 <div>
-                  <strong className="text-yellow-800">Unpaid Penalties:</strong> E${totalUnpaid.toFixed(2)}
+                  <strong className="text-yellow-800">Unpaid Penalties:</strong> {formatCurrency(totalUnpaid)}
+
 
                 </div>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
@@ -136,7 +139,8 @@ const PenaltyDisplay = ({ rentalId, onSuccess }) => {
                       </div>
                       <p className="mb-2 text-gray-700">{penalty.reason}</p>
                       <div className="flex items-center gap-3">
-                        <strong className="text-red-600">E${parseFloat(penalty.amount).toFixed(2)}</strong>
+                        <strong className="text-red-600">{formatCurrency(parseFloat(penalty.amount))}</strong>
+
                         {penalty.paid_at && (
 
                           <small className="text-gray-500">
@@ -216,8 +220,9 @@ const PenaltyDisplay = ({ rentalId, onSuccess }) => {
                       </div>
                       <div className="flex justify-between border-t border-gray-200 pt-2">
                         <span className="text-gray-900 font-semibold">Amount:</span>
-<span className="text-lg font-bold text-red-600">E${parseFloat(selectedPenalty.amount).toFixed(2)}</span>
+<span className="text-lg font-bold text-red-600">{formatCurrency(parseFloat(selectedPenalty.amount))}</span>
                       </div>
+
                     </div>
                   </div>
 
