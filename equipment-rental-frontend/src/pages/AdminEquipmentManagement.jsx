@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { equipmentAPI } from '../services/api';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const AdminEquipmentManagement = () => {
   const [equipment, setEquipment] = useState([]);
@@ -20,7 +21,12 @@ const AdminEquipmentManagement = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await equipmentAPI.getAll(`page=${page}&limit=${pageSize}`);
+
+      const params = new URLSearchParams();
+      params.append('page', String(page));
+      params.append('limit', String(pageSize));
+
+      const response = await equipmentAPI.getAll(params);
       setEquipment(response.data);
       setPagination(response.pagination);
     } catch (error) {
@@ -44,13 +50,6 @@ const AdminEquipmentManagement = () => {
       console.error('Failed to delete equipment:', error);
       toast.error('Failed to delete equipment. Please try again.');
     }
-  };
-
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
   };
 
   const handlePageChange = (newPage) => {
@@ -167,7 +166,7 @@ const AdminEquipmentManagement = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm text-gray-900">{item.category}</span>
+                      <span className="text-sm text-gray-900">{item.category || item.category_name || item.category?.name || 'N/A'}</span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="text-sm text-gray-900">{formatCurrency(item.daily_rate)}</span>
