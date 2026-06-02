@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import RentalForm from '../components/rentals/RentalForm';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const RentalCheckout = () => {
   const [step, setStep] = useState(1); // 1: Rental Form, 2: Payment, 3: Confirmation
@@ -251,7 +252,7 @@ const RentalCheckout = () => {
                     </div>
                     <div className="flex justify-between border-t border-gray-200 pt-2">
                       <span className="text-gray-900 font-semibold">Total Amount:</span>
-<span className="text-lg font-bold text-primary-600">E{rental.total_amount}</span>
+<span className="text-lg font-bold text-primary-600">{formatCurrency(rental.total_amount)}</span>
                     </div>
                   </div>
                 </div>
@@ -487,7 +488,7 @@ const RentalCheckout = () => {
                     </div>
                     <div className="flex justify-between border-t border-gray-200 pt-2">
                       <span className="text-gray-900 font-semibold">Total Paid:</span>
-<span className="font-bold text-primary-600">E{rental.total_amount}</span>
+<span className="font-bold text-primary-600">{formatCurrency(rental.total_amount)}</span>
                     </div>
                   </div>
                 </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { damageReportsAPI } from '../services/api';
 import toast from 'react-hot-toast';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const AdminDamageReportDetails = () => {
   const { id } = useParams();
@@ -171,12 +172,12 @@ const AdminDamageReportDetails = () => {
             </div>
             <div>
               <p className="text-xs font-medium text-gray-500">Estimated Cost</p>
-<p className="text-lg font-semibold text-gray-900">E{report.estimated_cost}</p>
+<p className="text-lg font-semibold text-gray-900">{formatCurrency(report.estimated_cost)}</p>
             </div>
             {report.actual_cost && (
               <div>
                 <p className="text-xs font-medium text-gray-500">Actual Cost</p>
-<p className="text-lg font-semibold text-gray-900">E{report.actual_cost}</p>
+<p className="text-lg font-semibold text-gray-900">{formatCurrency(report.actual_cost)}</p>
               </div>
             )}
             <div>

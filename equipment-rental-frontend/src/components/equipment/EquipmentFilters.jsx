@@ -165,7 +165,7 @@ const EquipmentFilters = ({ onFilterChange, initialFilters }) => {
           {/* Min Price */}
           <div className="flex-1">
             <label htmlFor="minPrice" className="block text-sm font-medium text-gray-700 mb-1">
-              Min Price per Day (E)
+              Min Price per Day (SZL)
 
             </label>
             <input
@@ -183,8 +183,8 @@ const EquipmentFilters = ({ onFilterChange, initialFilters }) => {
           {/* Max Price */}
           <div className="flex-1">
             <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
-              Max Price per Day (E)
-
+              Max Price per Day (SZL)
+        
             </label>
             <input
               type="number"
