@@ -56,7 +56,7 @@ const register = async (req, res) => {
         email,
         first_name,
         last_name,
-        email_verified: false
+        email_verified: true
       }
     });
   } catch (error) {
@@ -85,11 +85,11 @@ const login = async (req, res) => {
 
     // Temporarily allow login without email verification
     // TODO: Re-enable email verification check when email service is properly configured
-    if (!user.email_verified) {
-      return res.status(403).json({
-        error: 'Please verify your email before logging in. Check your email for verification instructions.'
-      });
-    }
+    // if (!user.email_verified) {
+    //   return res.status(403).json({
+    //     error: 'Please verify your email before logging in. Check your email for verification instructions.'
+    //   });
+    // }
 
     // Check password
     const isPasswordValid = await User.comparePassword(password, user.password);
@@ -133,7 +133,8 @@ const login = async (req, res) => {
       user: userWithoutPassword,
       token
     });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ error: 'Failed to login' });
   }

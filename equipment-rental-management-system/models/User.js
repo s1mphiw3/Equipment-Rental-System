@@ -9,16 +9,13 @@ class User {
     const saltRounds = 12;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Generate email verification token
-    const verificationToken = require('crypto').randomBytes(32).toString('hex');
-
     const [result] = await db.execute(
       `INSERT INTO users (email, password, first_name, last_name, phone, address, role, email_verification_token, email_verified)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [email, hashedPassword, first_name, last_name, phone, address, role, verificationToken, false]
+       VALUES (?, ?, ?, ?, ?, ?, ?, NULL, TRUE)`,
+      [email, hashedPassword, first_name, last_name, phone, address, role]
     );
 
-    return { userId: result.insertId, verificationToken };
+    return { userId: result.insertId, verificationToken: null };
   }
 
   static async findByEmail(email) {
