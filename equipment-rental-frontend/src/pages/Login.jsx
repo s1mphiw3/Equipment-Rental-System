@@ -39,18 +39,38 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const result = await login(formData.email, formData.password, requires2FA ? formData.twoFactorCode : undefined);
+      const result = await login(
+        formData.email,
+        formData.password,
+        requires2FA ? formData.twoFactorCode : undefined
+      );
 
       if (result.success) {
         toast.success('Login successful!');
         navigate('/', { replace: true });
-      } else if (result.requires2FA) {
+        return;
+      }
+
+      // Backend currently returns { success:false, error: 'Invalid email or password' }
+      if (result.error && result.error.toLowerCase().includes('invalid email or password')) {
+        toast.error('Invalid email or password');
+        return;
+      }
+
+      if (result.unuser || result.pass) {
+        toast.error('Invalid email or password');
+        return;
+      }
+
+      if (result.requires2FA) {
         setRequires2FA(true);
         toast.info('Please enter your 2FA code');
-      } else {
-        toast.error(result.error || 'Login failed');
+        return;
       }
-    } catch {
+
+      toast.error(result.error || 'Login failed');
+    }
+    catch {
       toast.error('An unexpected error occurred');
     } finally {
       setLoading(false);
