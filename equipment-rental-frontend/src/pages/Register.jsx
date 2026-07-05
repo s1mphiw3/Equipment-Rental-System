@@ -11,7 +11,8 @@ const Register = () => {
     password: '',
     confirmPassword: '',
     phone: '',
-    address: ''
+    address: '',
+    role: 'customer'
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -19,11 +20,11 @@ const Register = () => {
   const { register, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/');
-    }
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate('/');
+  //   }
+  // }, [isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -86,7 +87,9 @@ const Register = () => {
       
       if (result.success) {
         toast.success('Account created successfully!');
-        navigate('/');
+        // Redirect to login so the session/token is initialized correctly
+        // then login will handle role-based landing.
+        navigate('/login');
       } else {
         toast.error(result.error || 'Registration failed');
       }
@@ -187,6 +190,27 @@ const Register = () => {
                 )}
               </div>
             </div>
+
+            <div>
+              <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+                User Type
+              </label>
+              <div className="mt-1">
+                <select
+                  id="role"
+                  name="role"
+                  required
+                  value={formData.role}
+                  onChange={handleChange}
+                  className="input-field"
+                >
+                  <option value="customer">Customer</option>
+                  <option value="staff">Staff</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+            </div>
+
 
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">

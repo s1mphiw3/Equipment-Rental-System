@@ -21,7 +21,8 @@ const registerValidation = (data) => {
     phone: Joi.string().pattern(/^\+?[\d\s-()]+$/).optional().messages({
       'string.pattern.base': 'Please provide a valid phone number'
     }),
-    address: Joi.string().max(500).optional().allow('')
+    address: Joi.string().max(500).optional().allow(''),
+    role: Joi.string().valid('customer', 'admin', 'staff').optional().default('customer')
   });
 
   return schema.validate(data);

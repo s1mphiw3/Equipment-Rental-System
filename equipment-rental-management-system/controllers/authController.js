@@ -21,7 +21,7 @@ const register = async (req, res) => {
       });
     }
 
-    const { email, password, first_name, last_name, phone, address } = req.body;
+    const { email, password, first_name, last_name, phone, address, role } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findByEmail(email);
@@ -36,7 +36,8 @@ const register = async (req, res) => {
       first_name,
       last_name,
       phone,
-      address
+      address,
+      role
     });
 
     // Send verification email

@@ -21,11 +21,11 @@ const Login = () => {
 
   const from = location.state?.from?.pathname || '/';
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/', { replace: true });
-    }
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate('/', { replace: true });
+  //   }
+  // }, [isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     setFormData({

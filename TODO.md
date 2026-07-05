@@ -1,8 +1,6 @@
-# TODO - Remove Email Verification Requirement
-
-- [ ] Backend: remove `email_verified` blocking check from `authController.login`
-- [ ] Backend: update `authController.register` response to allow immediate login (success message + `email_verified: true`)
-- [ ] Frontend: remove “Verify Email” button/flow from `Login.jsx` so login does not require verification
-- [ ] Frontend: ensure `Register.jsx` doesn’t display “check your email” messaging (verify and adjust if present)
-- [ ] Smoke test: register + login works immediately (2FA flow unchanged)
+- [ ] Add user type/role dropdown to Register form (frontend)
+- [ ] Send role to backend during registration
+- [ ] Allow role in backend register validation
+- [ ] Ensure backend passes role into User.create
+- [ ] Smoke test: register as customer/admin/staff and verify DB users.role is set
 
